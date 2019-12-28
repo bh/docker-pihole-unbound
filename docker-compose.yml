@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+    pihole:
+        depends_on:
+            - unbound
+        network_mode: host
+        container_name: pihole
+        image: 'pihole/pihole:latest'
+        ports:
+            - '53:53/tcp'
+            - '53:53/udp'
+            - '67:67/udp'
+            - '82:80/tcp'
+            - '444:443/tcp'
+        environment:
+            DNS1: '127.0.0.1#5053'
+            DNS2: no
+            TZ: Europe/Berlin
+            WEBPASSWORD: pw
+            ServerIP: 10.0.0.252
+            VIRTUAL_HOST: pihole.lan
+            WEB_PORT: 82
+        volumes:
+            - './etc-pihole/:/etc/pihole/'
+            - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+        dns:
+            - 127.0.0.1
+            - 1.1.1.1
+        cap_add:
+            - NET_ADMIN
+        restart: unless-stopped
+
+    unbound:
+        network_mode: host
+        container_name: unbound
+        volumes:
+            - './unbound:/opt/unbound/etc/unbound'
+        ports:
+            - '5053:5053/tcp'
+            - '5053:5053/udp'
+        restart: unless-stopped
+        image: klutchell/unbound
