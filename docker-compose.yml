@@ -15,7 +15,7 @@ services:
             - '444:443/tcp'
         environment:
             DNS1: '127.0.0.1#5053'
-            DNS2: no
+            DNS2: 'no'
             TZ: Europe/Berlin
             WEBPASSWORD: pw
             ServerIP: 10.0.0.252
