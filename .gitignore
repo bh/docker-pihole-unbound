@@ -8,3 +8,5 @@
 !/unbound/root.hints
 !README.md
 !.gitignore
+!/misc/*
+
