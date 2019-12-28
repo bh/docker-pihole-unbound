@@ -1,0 +1,10 @@
+*
+!docker-compose.yml
+!*/
+
+
+!/unbound/unbound.conf
+!/unbound/a-records.conf
+!/unbound/root.hints
+!README.md
+!.gitignore
